@@ -11,10 +11,10 @@
         public DateTime? HireDate { get; set; }
         public int Salary { get; set; }
         public decimal comissionPct { get; set; }
-        public bool IsManager { get; set; }
+        public int ManagerId { get; set; }
         public string? JobId { get; set; }
         public int DepartmentId { get; set; }
 
-
+        public Employee() { }
     }
 }

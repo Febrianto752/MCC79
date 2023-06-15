@@ -31,7 +31,7 @@ namespace DatabaseConnectivity.models
                         employee.HireDate = reader.GetDateTime(5);
                         employee.Salary = reader.GetInt32(6);
                         employee.comissionPct = reader.GetDecimal(7);
-                        employee.IsManager = reader.IsDBNull(8) ? false : true;
+                        employee.ManagerId = reader.IsDBNull(8) ? 0 : reader.GetInt32(8);
                         employee.JobId = reader.GetString(9);
                         employee.DepartmentId = reader.GetInt32(10);
 

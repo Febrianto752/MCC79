@@ -26,9 +26,9 @@ namespace DatabaseConnectivity.views
                 Console.WriteLine("Hire Date       : {0}", employee.HireDate);
                 Console.WriteLine("Salary          : {0}", employee.Salary);
                 Console.WriteLine("Comission pct   : {0}", employee.comissionPct);
-                Console.WriteLine("Status          : {0}", employee.IsManager ? "Manager" : "Staff");
-                Console.WriteLine("Job Id          : {0}", employee.JobId);
-                Console.WriteLine("Department Id   : {0}", employee.DepartmentId);
+                Console.WriteLine("Manager ID      : {0}", employee.ManagerId);
+                Console.WriteLine("Job ID          : {0}", employee.JobId);
+                Console.WriteLine("Department ID   : {0}", employee.DepartmentId);
 
                 Console.WriteLine("===========================");
             }
