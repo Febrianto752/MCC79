@@ -14,9 +14,7 @@ namespace DatabaseConnectivity.models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT l.id, l.street_address, l.postal_code , l.city, l.state_province, c.name AS country, r.name AS region FROM tb_m_locations l JOIN  tb_m_countries c ON l.country_id = c.id JOIN tb_m_regions r ON c.region_id = r.id";
-
-                connection.Open();
+                command.CommandText = "SELECT * FROM tb_m_locations";
 
                 using SqlDataReader reader = command.ExecuteReader();
 
@@ -30,18 +28,7 @@ namespace DatabaseConnectivity.models
                         location.PostalCode = reader.IsDBNull(2) ? null : reader.GetString(2);
                         location.City = reader.IsDBNull(3) ? null : reader.GetString(3);
                         location.StateProvince = reader.IsDBNull(4) ? null : reader.GetString(4);
-                        string countryName = reader.IsDBNull(5) ? null : reader.GetString(5);
-                        string regionName = reader.IsDBNull(6) ? null : reader.GetString(6);
-
-                        Country country = new Country();
-                        country.Name = countryName;
-
-                        Region region = new Region();
-                        region.Name = regionName;
-
-                        country.Region = region;
-
-                        location.Country = country;
+                        location.CountryId = reader.IsDBNull(5) ? null : reader.GetString(5);
 
                         locations.Add(location);
                     }

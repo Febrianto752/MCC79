@@ -17,8 +17,6 @@ namespace DatabaseConnectivity.models
                 command.CommandText = "SELECT d.id, d.name AS department_name, e.first_name + ' ' + e.last_name AS manager_name, l.street_address FROM tb_m_departments d JOIN tb_m_employees e ON d.manager_id = e.id JOIN tb_m_locations l ON d.location_id = l.id ";
                 //command.CommandText = "SELECT * FROM tb_m_departments";
 
-                connection.Open();
-
                 using SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)

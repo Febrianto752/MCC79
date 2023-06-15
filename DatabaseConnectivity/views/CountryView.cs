@@ -20,7 +20,7 @@ namespace DatabaseConnectivity.views
                 Console.WriteLine("===========================");
                 Console.WriteLine("ID country   : {0}", country.Id);
                 Console.WriteLine("Name         : {0}", country.Name);
-                Console.WriteLine("Region       : {0}", country.Region.Name);
+                Console.WriteLine("Region ID    : {0}", country.RegionId);
                 Console.WriteLine("===========================");
             }
 
@@ -166,11 +166,18 @@ namespace DatabaseConnectivity.views
 
             Country country = CountryModel.FindCountry(countryId);
 
+            if (country.Id is null)
+            {
+                Console.WriteLine("country id is wrong!!!");
+                Console.ReadKey();
+                CountryList();
+            }
+
             Console.Clear();
-            Console.WriteLine("*** Region Detail ***");
+            Console.WriteLine("*** Country Detail ***");
             Console.WriteLine("ID : {0}", country.Id);
             Console.WriteLine("Country Name : {0}", country.Name);
-            Console.WriteLine("Region Name : {0}", country.Region.Name);
+            Console.WriteLine("Region ID : {0}", country.RegionId);
             Console.ReadKey();
             CountryList();
         }
@@ -194,9 +201,9 @@ namespace DatabaseConnectivity.views
 
             Console.Clear();
             Console.WriteLine("Previous Data Country :");
-            Console.WriteLine("ID : {0}", country.Id);
-            Console.WriteLine("Name : {0}", country.Name);
-            Console.WriteLine("Region : {0}", country.Region.Name);
+            Console.WriteLine("ID        : {0}", country.Id);
+            Console.WriteLine("Name      : {0}", country.Name);
+            Console.WriteLine("Region ID : {0}", country.RegionId);
             Console.WriteLine("\n\n");
 
             Console.WriteLine("*** Edit Country ***");

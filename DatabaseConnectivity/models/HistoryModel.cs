@@ -16,8 +16,6 @@ namespace DatabaseConnectivity.models
                 command.Connection = connection;
                 command.CommandText = "SELECT * FROM tb_tr_histories";
 
-                connection.Open();
-
                 using SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)

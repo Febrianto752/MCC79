@@ -17,8 +17,6 @@ namespace DatabaseConnectivity.models
                 command.Connection = connection;
                 command.CommandText = "SELECT * FROM tb_m_regions";
 
-                connection.Open();
-
                 using SqlDataReader reader = command.ExecuteReader();
 
                 if (reader.HasRows)
@@ -52,7 +50,6 @@ namespace DatabaseConnectivity.models
         public static Region FindOneRegion(int id)
         {
             SqlConnection connection = DB.Connection();
-            connection.Open();
             Region region = new Region();
 
             try
@@ -102,7 +99,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
@@ -149,7 +145,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
@@ -205,7 +200,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try

@@ -15,9 +15,8 @@ namespace DatabaseConnectivity.models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT c.id, c.name AS country_name, r.id AS region_id, r.name AS region_name FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id";
 
-                connection.Open();
+                command.CommandText = "SELECT * FROM tb_m_countries";
 
                 using SqlDataReader reader = command.ExecuteReader();
 
@@ -28,12 +27,7 @@ namespace DatabaseConnectivity.models
                         var country = new Country();
                         country.Id = reader.GetString(0);
                         country.Name = reader.GetString(1);
-
-                        int regionId = reader.GetInt32(2);
-                        string regionName = reader.GetString(3);
-                        Region region = new Region(regionId, regionName);
-
-                        country.Region = region;
+                        country.RegionId = reader.GetInt32(2);
 
                         countries.Add(country);
                     }
@@ -58,14 +52,13 @@ namespace DatabaseConnectivity.models
         public static Country FindCountry(string id)
         {
             SqlConnection connection = DB.Connection();
-            connection.Open();
             Country country = new Country();
 
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT c.id, c.name AS country_name, r.id AS region_id, r.name AS region_name FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id  WHERE c.id = (@country_id)";
+                command.CommandText = "SELECT * FROM tb_m_countries WHERE id = (@country_id)";
 
                 // membuat parameter
                 SqlParameter pCountryId = new SqlParameter();
@@ -85,12 +78,7 @@ namespace DatabaseConnectivity.models
                     {
                         country.Id = reader.GetString(0);
                         country.Name = reader.GetString(1);
-
-                        int regionId = reader.GetInt32(2);
-                        string regionName = reader.GetString(3);
-                        Region region = new Region(regionId, regionName);
-
-                        country.Region = region;
+                        country.RegionId = reader.GetInt32(2);
                     }
                 }
 
@@ -110,7 +98,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
@@ -176,7 +163,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
@@ -241,7 +227,6 @@ namespace DatabaseConnectivity.models
         {
             int result = 0;
             SqlConnection connection = DB.Connection();
-            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try

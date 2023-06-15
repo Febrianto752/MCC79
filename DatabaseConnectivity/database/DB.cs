@@ -9,7 +9,9 @@ namespace DatabaseConnectivity.database
 
         public static SqlConnection Connection()
         {
-            return new SqlConnection(connectionString);
+            var connectionDB = new SqlConnection(connectionString);
+            connectionDB.Open();
+            return connectionDB;
         }
     }
 }
