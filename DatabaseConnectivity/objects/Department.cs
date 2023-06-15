@@ -7,8 +7,6 @@
         public int? LocationId { get; set; }
         public int? ManagerId { get; set; }
 
-        public string? StreetAddress { get; set; }
-
-        public string? ManagerName { get; set; }
+        public Department() { }
     }
 }

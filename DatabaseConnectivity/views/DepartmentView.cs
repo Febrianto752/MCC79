@@ -20,8 +20,8 @@ namespace DatabaseConnectivity.views
                 Console.WriteLine("===========================");
                 Console.WriteLine("ID deparment    : {0}", deparment.Id);
                 Console.WriteLine("Name            : {0}", deparment.Name);
-                Console.WriteLine("Street Address  : {0}", deparment.StreetAddress);
-                Console.WriteLine("Manager         : {0}", deparment.ManagerName);
+                Console.WriteLine("Location ID     : {0}", deparment.LocationId);
+                Console.WriteLine("Manager ID      : {0}", deparment.ManagerId);
                 Console.WriteLine("===========================");
             }
 
