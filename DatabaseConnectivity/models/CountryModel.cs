@@ -15,7 +15,7 @@ namespace DatabaseConnectivity.models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT c.id, c.name AS country_name, r.name AS country_region FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id";
+                command.CommandText = "SELECT c.id, c.name AS country_name, r.id AS region_id, r.name AS region_name FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id";
 
                 connection.Open();
 
@@ -28,7 +28,12 @@ namespace DatabaseConnectivity.models
                         var country = new Country();
                         country.Id = reader.GetString(0);
                         country.Name = reader.GetString(1);
-                        country.RegionName = reader.GetString(2);
+
+                        int regionId = reader.GetInt32(2);
+                        string regionName = reader.GetString(3);
+                        Region region = new Region(regionId, regionName);
+
+                        country.Region = region;
 
                         countries.Add(country);
                     }
@@ -60,7 +65,7 @@ namespace DatabaseConnectivity.models
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT c.id, c.name AS country_name, r.name AS country_region FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id  WHERE c.id = (@country_id)";
+                command.CommandText = "SELECT c.id, c.name AS country_name, r.id AS region_id, r.name AS region_name FROM tb_m_countries c JOIN tb_m_regions r ON c.region_id = r.id  WHERE c.id = (@country_id)";
 
                 // membuat parameter
                 SqlParameter pCountryId = new SqlParameter();
@@ -80,7 +85,12 @@ namespace DatabaseConnectivity.models
                     {
                         country.Id = reader.GetString(0);
                         country.Name = reader.GetString(1);
-                        country.RegionName = reader.GetString(2);
+
+                        int regionId = reader.GetInt32(2);
+                        string regionName = reader.GetString(3);
+                        Region region = new Region(regionId, regionName);
+
+                        country.Region = region;
                     }
                 }
 

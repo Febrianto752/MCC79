@@ -9,16 +9,18 @@ namespace DatabaseConnectivity.views
         public static void CountryList()
         {
             Console.Clear();
+            Console.WriteLine("Loading...");
             List<Country> countries = CountryModel.FindAllCountry();
+            Console.Clear();
 
             Console.WriteLine("*** Country List ***\n");
 
             foreach (var country in countries)
             {
                 Console.WriteLine("===========================");
-                Console.WriteLine("ID country     : {0}", country.Id);
-                Console.WriteLine("Country Name   : {0}", country.Name);
-                Console.WriteLine("Country Region : {0}", country.RegionName);
+                Console.WriteLine("ID country   : {0}", country.Id);
+                Console.WriteLine("Name         : {0}", country.Name);
+                Console.WriteLine("Region       : {0}", country.Region.Name);
                 Console.WriteLine("===========================");
             }
 
@@ -115,9 +117,6 @@ namespace DatabaseConnectivity.views
             bool validId = Validation.MustBeTwoChar(countryId);
 
 
-
-
-
             if (validId)
             {
                 Country country = CountryModel.FindCountry(countryId);
@@ -171,7 +170,7 @@ namespace DatabaseConnectivity.views
             Console.WriteLine("*** Region Detail ***");
             Console.WriteLine("ID : {0}", country.Id);
             Console.WriteLine("Country Name : {0}", country.Name);
-            Console.WriteLine("Region Name : {0}", country.RegionName);
+            Console.WriteLine("Region Name : {0}", country.Region.Name);
             Console.ReadKey();
             CountryList();
         }
@@ -180,8 +179,8 @@ namespace DatabaseConnectivity.views
         {
             Console.Clear();
             Console.WriteLine("*** Edit Country ***");
-            Console.Write("Enter country id : ");
 
+            Console.Write("Enter country id : ");
             string countryId = Console.ReadLine().ToUpper();
 
             Country country = CountryModel.FindCountry(countryId);
@@ -194,6 +193,12 @@ namespace DatabaseConnectivity.views
             }
 
             Console.Clear();
+            Console.WriteLine("Previous Data Country :");
+            Console.WriteLine("ID : {0}", country.Id);
+            Console.WriteLine("Name : {0}", country.Name);
+            Console.WriteLine("Region : {0}", country.Region.Name);
+            Console.WriteLine("\n\n");
+
             Console.WriteLine("*** Edit Country ***");
             Console.Write("Country name : ");
             string regionName = Console.ReadLine();
