@@ -24,8 +24,8 @@ namespace DatabaseConnectivity.views
                 Console.WriteLine("Postal Code      : {0}", location.PostalCode);
                 Console.WriteLine("City             : {0}", location.City);
                 Console.WriteLine("State Province   : {0}", location.StateProvince);
-                Console.WriteLine("Country          : {0}", location.CountryName);
-                Console.WriteLine("Region           : {0}", location.RegionName);
+                Console.WriteLine("Country          : {0}", location.Country.Name);
+                Console.WriteLine("Region           : {0}", location.Country.Region.Name);
                 Console.WriteLine("===========================");
             }
 

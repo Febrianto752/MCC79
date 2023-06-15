@@ -6,7 +6,6 @@ namespace DatabaseConnectivity.models
 {
     class LocationModel
     {
-
         public static List<Location> FindAllLocation()
         {
             SqlConnection connection = DB.Connection();
@@ -25,16 +24,26 @@ namespace DatabaseConnectivity.models
                 {
                     while (reader.Read())
                     {
-                        var country = new Location();
-                        country.Id = reader.GetInt32(0);
-                        country.StreetAddress = reader.IsDBNull(1) ? null : reader.GetString(1);
-                        country.PostalCode = reader.IsDBNull(2) ? null : reader.GetString(2);
-                        country.City = reader.IsDBNull(3) ? null : reader.GetString(3);
-                        country.StateProvince = reader.IsDBNull(4) ? null : reader.GetString(4);
-                        country.CountryName = reader.IsDBNull(5) ? null : reader.GetString(5);
-                        country.RegionName = reader.IsDBNull(6) ? null : reader.GetString(6);
+                        var location = new Location();
+                        location.Id = reader.GetInt32(0);
+                        location.StreetAddress = reader.IsDBNull(1) ? null : reader.GetString(1);
+                        location.PostalCode = reader.IsDBNull(2) ? null : reader.GetString(2);
+                        location.City = reader.IsDBNull(3) ? null : reader.GetString(3);
+                        location.StateProvince = reader.IsDBNull(4) ? null : reader.GetString(4);
+                        string countryName = reader.IsDBNull(5) ? null : reader.GetString(5);
+                        string regionName = reader.IsDBNull(6) ? null : reader.GetString(6);
 
-                        locations.Add(country);
+                        Country country = new Country();
+                        country.Name = countryName;
+
+                        Region region = new Region();
+                        region.Name = regionName;
+
+                        country.Region = region;
+
+                        location.Country = country;
+
+                        locations.Add(location);
                     }
                 }
                 else
