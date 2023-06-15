@@ -14,7 +14,8 @@
             Console.WriteLine("5. Get all employees");
             Console.WriteLine("6. Get all jobs");
             Console.WriteLine("7. Get all histories");
-            Console.WriteLine("8. Exit");
+            Console.WriteLine("8. Linq");
+            Console.WriteLine("9. Exit");
             Console.WriteLine("******************");
             Console.Write("pilihan : ");
 
@@ -55,6 +56,9 @@
                     HistoryView.HistoryList();
                     break;
                 case 8:
+                    LinqView.Task();
+                    break;
+                case 9:
                     Environment.Exit(0);
                     break;
                 default:
