@@ -1,9 +1,10 @@
-﻿namespace DatabaseConnectivity.views
-{
-    class GeneralView
-    {
+﻿using DatabaseConnectivity.views;
 
-        public static void HomePage()
+namespace DatabaseConnectivity.Controllers
+{
+    class MainController
+    {
+        public void MainMenu()
         {
             Console.Clear();
             Console.WriteLine("*** Main Menu ***");
@@ -29,13 +30,13 @@
             {
                 Console.WriteLine("Invalid choice input!!!");
                 Console.ReadKey();
-                HomePage();
+                MainMenu();
             }
 
             switch (pilihan)
             {
                 case 1:
-                    RegionView.RegionList();
+                    new RegionController().ListMenu();
                     break;
                 case 2:
                     CountryView.CountryList();
@@ -64,19 +65,9 @@
                 default:
                     Console.WriteLine("Invalid choice input!!!");
                     Console.ReadKey();
-                    HomePage();
+                    MainMenu();
                     break;
             }
-        }
-
-        public void ErrorMessage(string message)
-        {
-            Console.WriteLine(message);
-        }
-
-        public void SuccessMessage(string message)
-        {
-            Console.WriteLine(message);
         }
     }
 }

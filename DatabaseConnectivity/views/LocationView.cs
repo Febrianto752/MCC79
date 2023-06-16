@@ -1,12 +1,9 @@
-﻿using DatabaseConnectivity.models;
-using DatabaseConnectivity.objects;
-
-namespace DatabaseConnectivity.views
+﻿namespace DatabaseConnectivity.views
 {
     class LocationView
     {
 
-        public static void LocationList()
+        public void LocationList()
         {
             Console.Clear();
             Console.WriteLine("Loading...");

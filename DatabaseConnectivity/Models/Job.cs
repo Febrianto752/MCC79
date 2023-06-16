@@ -1,7 +1,7 @@
 ﻿using DatabaseConnectivity.database;
 using System.Data.SqlClient;
 
-namespace DatabaseConnectivity.models
+namespace DatabaseConnectivity.Models
 {
     class Job
     {

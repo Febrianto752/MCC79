@@ -1,12 +1,9 @@
-﻿using DatabaseConnectivity.models;
-using DatabaseConnectivity.objects;
-
-namespace DatabaseConnectivity.views
+﻿namespace DatabaseConnectivity.views
 {
     class HistoryView
     {
 
-        public static void HistoryList()
+        public void HistoryList()
         {
             Console.Clear();
             Console.WriteLine("Loading...");

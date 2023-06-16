@@ -1,11 +1,8 @@
-﻿using DatabaseConnectivity.models;
-using DatabaseConnectivity.objects;
-
-namespace DatabaseConnectivity.views
+﻿namespace DatabaseConnectivity.views
 {
     class DepartmentView
     {
-        public static void DepartmentList()
+        public void DepartmentList()
         {
             Console.Clear();
             Console.WriteLine("Loading...");

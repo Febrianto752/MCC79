@@ -1,11 +1,8 @@
-﻿using DatabaseConnectivity.models;
-using DatabaseConnectivity.objects;
-
-namespace DatabaseConnectivity.views
+﻿namespace DatabaseConnectivity.views
 {
     class JobView
     {
-        public static void JobList()
+        public void JobList()
         {
             Console.Clear();
             Console.WriteLine("Loading...");

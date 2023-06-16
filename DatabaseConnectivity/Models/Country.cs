@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DatabaseConnectivity.models
+namespace DatabaseConnectivity.Models
 {
     class Country
     {

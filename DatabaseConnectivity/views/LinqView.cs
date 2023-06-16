@@ -1,10 +1,8 @@
-﻿using DatabaseConnectivity.models;
-
-namespace DatabaseConnectivity.views
+﻿namespace DatabaseConnectivity.views
 {
     class LinqView
     {
-        public static void Task()
+        public void Task()
         {
             Console.WriteLine("*** Tugas Linq ***");
             Console.WriteLine("Soal : ");
@@ -47,7 +45,7 @@ namespace DatabaseConnectivity.views
 
         }
 
-        public static void Soal1()
+        public void Soal1()
         {
             Console.Clear();
             // column yang tampil : id, full_name, email, phone, salary, department_name, street_address, country_name, region_name
@@ -142,7 +140,7 @@ namespace DatabaseConnectivity.views
             GeneralView.HomePage();
         }
 
-        public static void Soal2()
+        public void Soal2()
         {
             Console.Clear();
 

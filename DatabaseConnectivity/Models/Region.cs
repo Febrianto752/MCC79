@@ -2,7 +2,7 @@
 using System.Data;
 using System.Data.SqlClient;
 
-namespace DatabaseConnectivity.models
+namespace DatabaseConnectivity.Models
 {
     class Region
     {
@@ -11,7 +11,7 @@ namespace DatabaseConnectivity.models
 
         public Region() { }
 
-        public List<Region> FindAllRegion()
+        public List<Region> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -35,24 +35,19 @@ namespace DatabaseConnectivity.models
                         regions.Add(region);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                return regions;
             }
             connection.Close();
             return regions;
         }
 
-        public Region FindOneRegion(int id)
+        public Region FindById(int id)
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -84,18 +79,15 @@ namespace DatabaseConnectivity.models
                         region.Name = reader.GetString(1);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
+
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return region;
             }
             connection.Close();
             return region;
@@ -103,7 +95,7 @@ namespace DatabaseConnectivity.models
 
         public int Create(string name)
         {
-            int result = 0;
+            int result;
             SqlConnection connection = new DB().Connection();
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -130,8 +122,6 @@ namespace DatabaseConnectivity.models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -139,7 +129,6 @@ namespace DatabaseConnectivity.models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }
@@ -186,8 +175,6 @@ namespace DatabaseConnectivity.models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -195,7 +182,6 @@ namespace DatabaseConnectivity.models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }
@@ -233,8 +219,6 @@ namespace DatabaseConnectivity.models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -242,7 +226,6 @@ namespace DatabaseConnectivity.models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }

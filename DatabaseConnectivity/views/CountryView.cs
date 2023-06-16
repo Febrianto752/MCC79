@@ -1,12 +1,10 @@
-﻿using DatabaseConnectivity.models;
-using DatabaseConnectivity.objects;
-using DatabaseConnectivity.utils;
+﻿using DatabaseConnectivity.utils;
 
 namespace DatabaseConnectivity.views
 {
     class CountryView
     {
-        public static void CountryList()
+        public void CountryList()
         {
             Console.Clear();
             Console.WriteLine("Loading...");
@@ -72,7 +70,7 @@ namespace DatabaseConnectivity.views
 
         }
 
-        public static void CreateCountry()
+        public void CreateCountry()
         {
             Console.Clear();
             Console.WriteLine("*** Create Country ***");
@@ -156,7 +154,7 @@ namespace DatabaseConnectivity.views
 
         }
 
-        public static void SearchCountry()
+        public void SearchCountry()
         {
             Console.Clear();
             Console.WriteLine("*** Search Region By Id ***");
@@ -182,7 +180,7 @@ namespace DatabaseConnectivity.views
             CountryList();
         }
 
-        public static void EditCountry()
+        public void EditCountry()
         {
             Console.Clear();
             Console.WriteLine("*** Edit Country ***");
@@ -258,7 +256,7 @@ namespace DatabaseConnectivity.views
             }
         }
 
-        public static void DeleteCountry()
+        public void DeleteCountry()
         {
             Console.Clear();
             Console.WriteLine("*** Delete Country ***");

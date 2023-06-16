@@ -9,7 +9,6 @@ namespace DatabaseConnectivity.database
 
         public SqlConnection Connection()
         {
-
             return new SqlConnection(connectionString);
         }
     }
