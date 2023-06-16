@@ -1,13 +1,12 @@
-﻿namespace DatabaseConnectivity.views
+﻿using DatabaseConnectivity.Models;
+
+namespace DatabaseConnectivity.views
 {
     class DepartmentView
     {
-        public void DepartmentList()
+        public void GetAll(List<Department> departments)
         {
-            Console.Clear();
-            Console.WriteLine("Loading...");
 
-            List<Department> departments = DepartmentModel.FindAllDepartment();
             Console.Clear();
 
             Console.WriteLine("*** Department List ***\n");
@@ -23,9 +22,7 @@
             }
 
 
-            Console.WriteLine("\nPress any key for back!");
-            Console.ReadLine();
-            GeneralView.HomePage();
+
 
 
         }

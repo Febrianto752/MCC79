@@ -42,7 +42,7 @@ namespace DatabaseConnectivity.Controllers
                     new CountryController().ListMenu();
                     break;
                 case 3:
-                    LocationView.LocationList();
+                    new LocationController().ListMenu();
                     break;
                 case 4:
                     DepartmentView.DepartmentList();

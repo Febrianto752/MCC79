@@ -12,7 +12,7 @@ namespace DatabaseConnectivity.Models
         public string? StateProvince { get; set; }
         public string? CountryId { get; set; }
 
-        public List<Location> FindAllLocation()
+        public List<Location> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -40,18 +40,14 @@ namespace DatabaseConnectivity.Models
                         locations.Add(location);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return locations;
             }
             connection.Close();
             return locations;

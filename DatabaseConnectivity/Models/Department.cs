@@ -12,7 +12,7 @@ namespace DatabaseConnectivity.Models
 
         public Department() { }
 
-        public List<Department> FindAllDepartment()
+        public List<Department> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -40,18 +40,14 @@ namespace DatabaseConnectivity.Models
                         departments.Add(department);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return departments;
             }
             connection.Close();
             return departments;
