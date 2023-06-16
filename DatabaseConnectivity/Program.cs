@@ -1,4 +1,4 @@
-﻿using DatabaseConnectivity.views;
+﻿using DatabaseConnectivity.Controllers;
 
 namespace DatabaseConnectivity;
 
@@ -6,6 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        GeneralView.HomePage();
+        new MainController().MainMenu();
     }
 }

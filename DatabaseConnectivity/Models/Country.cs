@@ -12,7 +12,7 @@ namespace DatabaseConnectivity.Models
 
         public Country() { }
 
-        public List<Country> FindAllCountry()
+        public List<Country> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -38,24 +38,20 @@ namespace DatabaseConnectivity.Models
                         countries.Add(country);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return countries;
             }
             connection.Close();
             return countries;
         }
 
-        public Country FindCountry(string id)
+        public Country FindCountryById(string id)
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -94,8 +90,8 @@ namespace DatabaseConnectivity.Models
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return country;
             }
             connection.Close();
             return country;
@@ -113,7 +109,7 @@ namespace DatabaseConnectivity.Models
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
                 command.CommandText = "INSERT INTO tb_m_countries (id, name, region_id) VALUES ((@country_id) , (@country_name) , (@region_id))";
-                //command.CommandText = $"INSERT INTO tb_m_countries (id, name, region_id) VALUES ('{id}', '{name}', {regionId})";
+
                 command.Transaction = transaction;
 
                 // membuat parameter
@@ -149,8 +145,6 @@ namespace DatabaseConnectivity.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -158,7 +152,6 @@ namespace DatabaseConnectivity.Models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }
@@ -169,7 +162,7 @@ namespace DatabaseConnectivity.Models
 
         public int Update(string id, string name, int regionId)
         {
-            int result = 0;
+            int result;
             SqlConnection connection = new DB().Connection();
             connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
@@ -214,8 +207,6 @@ namespace DatabaseConnectivity.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -223,7 +214,6 @@ namespace DatabaseConnectivity.Models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }
@@ -261,8 +251,6 @@ namespace DatabaseConnectivity.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
-
                 try
                 {
                     transaction.Rollback();
@@ -270,7 +258,6 @@ namespace DatabaseConnectivity.Models
                 }
                 catch (Exception rollback)
                 {
-                    Console.WriteLine(rollback.Message);
                     return 0;
                 }
             }
