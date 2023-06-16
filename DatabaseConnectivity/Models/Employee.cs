@@ -1,14 +1,29 @@
 ﻿using DatabaseConnectivity.database;
-using DatabaseConnectivity.objects;
 using System.Data.SqlClient;
 
 namespace DatabaseConnectivity.models
 {
-    class EmployeeModel
+    class Employee
     {
+        public int Id { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+
+        public string? Email { get; set; }
+        public string? PhoneNumber { get; set; }
+        public DateTime? HireDate { get; set; }
+        public int Salary { get; set; }
+        public decimal comissionPct { get; set; }
+        public int ManagerId { get; set; }
+        public string? JobId { get; set; }
+        public int DepartmentId { get; set; }
+
+        public Employee() { }
+
         public static List<Employee> FindAllEmployee()
         {
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             List<Employee> employees = new List<Employee>();
             try
             {

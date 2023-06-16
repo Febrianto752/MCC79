@@ -1,14 +1,21 @@
 ﻿using DatabaseConnectivity.database;
-using DatabaseConnectivity.objects;
 using System.Data.SqlClient;
 
 namespace DatabaseConnectivity.models
 {
-    class LocationModel
+    class Location
     {
-        public static List<Location> FindAllLocation()
+        public int Id { get; set; }
+        public string? StreetAddress { get; set; }
+        public string? PostalCode { get; set; }
+        public string? City { get; set; }
+        public string? StateProvince { get; set; }
+        public string? CountryId { get; set; }
+
+        public List<Location> FindAllLocation()
         {
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             List<Location> locations = new List<Location>();
             try
             {
@@ -49,5 +56,6 @@ namespace DatabaseConnectivity.models
             connection.Close();
             return locations;
         }
+
     }
 }

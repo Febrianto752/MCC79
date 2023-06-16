@@ -1,21 +1,25 @@
 ﻿using DatabaseConnectivity.database;
-using DatabaseConnectivity.objects;
 using System.Data.SqlClient;
 
 namespace DatabaseConnectivity.models
 {
-    class DepartmentModel
+    class Job
     {
-        public static List<Department> FindAllDepartment()
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public int MinSalary { get; set; }
+        public int MaxSalary { get; set; }
+
+        public List<Job> FindAllJob()
         {
-            SqlConnection connection = DB.Connection();
-            List<Department> departments = new List<Department>();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
+            List<Job> jobs = new List<Job>();
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-
-                command.CommandText = "SELECT * FROM tb_m_departments";
+                command.CommandText = "SELECT * FROM tb_m_jobs";
 
                 using SqlDataReader reader = command.ExecuteReader();
 
@@ -23,14 +27,13 @@ namespace DatabaseConnectivity.models
                 {
                     while (reader.Read())
                     {
-                        var department = new Department();
+                        var job = new Job();
+                        job.Id = reader.GetString(0);
+                        job.Title = reader.GetString(1);
+                        job.MinSalary = reader.GetInt32(2);
+                        job.MaxSalary = reader.GetInt32(3);
 
-                        department.Id = reader.GetInt32(0);
-                        department.Name = reader.IsDBNull(1) ? null : reader.GetString(1);
-                        department.LocationId = reader.IsDBNull(1) ? null : reader.GetInt32(2);
-                        department.ManagerId = reader.IsDBNull(1) ? null : reader.GetInt32(3);
-
-                        departments.Add(department);
+                        jobs.Add(job);
                     }
                 }
                 else
@@ -47,7 +50,7 @@ namespace DatabaseConnectivity.models
                 Console.WriteLine(ex.Message);
             }
             connection.Close();
-            return departments;
+            return jobs;
         }
     }
 }

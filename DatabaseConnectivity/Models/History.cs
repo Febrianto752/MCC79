@@ -1,14 +1,20 @@
 ﻿using DatabaseConnectivity.database;
-using DatabaseConnectivity.objects;
 using System.Data.SqlClient;
 
 namespace DatabaseConnectivity.models
 {
-    class HistoryModel
+    class History
     {
-        public static List<History> FindAllHistory()
+        public DateTime? StartDate { get; set; }
+        public int EmployeeId { get; set; }
+        public DateTime? EndDate { get; set; }
+        public int DepartMentId { get; set; }
+        public string JobId { get; set; }
+
+        public List<History> FindAllHistory()
         {
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             List<History> histories = new List<History>();
             try
             {

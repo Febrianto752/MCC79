@@ -1,21 +1,28 @@
 ﻿using DatabaseConnectivity.database;
-using DatabaseConnectivity.objects;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace DatabaseConnectivity.models
 {
-    class RegionModel
+    class Country
     {
-        public static List<Region> FindAllRegion()
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public int RegionId { get; set; }
+
+        public Country() { }
+
+        public List<Country> FindAllCountry()
         {
-            SqlConnection connection = DB.Connection();
-            List<Region> regions = new List<Region>();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
+            List<Country> countries = new List<Country>();
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM tb_m_regions";
+
+                command.CommandText = "SELECT * FROM tb_m_countries";
 
                 using SqlDataReader reader = command.ExecuteReader();
 
@@ -23,11 +30,12 @@ namespace DatabaseConnectivity.models
                 {
                     while (reader.Read())
                     {
-                        var reg = new Region();
-                        reg.Id = reader.GetInt32(0);
-                        reg.Name = reader.GetString(1);
+                        var country = new Country();
+                        country.Id = reader.GetString(0);
+                        country.Name = reader.GetString(1);
+                        country.RegionId = reader.GetInt32(2);
 
-                        regions.Add(reg);
+                        countries.Add(country);
                     }
                 }
                 else
@@ -44,28 +52,29 @@ namespace DatabaseConnectivity.models
                 Console.WriteLine(ex.Message);
             }
             connection.Close();
-            return regions;
+            return countries;
         }
 
-        public static Region FindOneRegion(int id)
+        public Country FindCountry(string id)
         {
-            SqlConnection connection = DB.Connection();
-            Region region = new Region();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
+            Country country = new Country();
 
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "SELECT * FROM tb_m_regions WHERE id = (@region_id)";
+                command.CommandText = "SELECT * FROM tb_m_countries WHERE id = (@country_id)";
 
                 // membuat parameter
-                SqlParameter pRegionId = new SqlParameter();
-                pRegionId.ParameterName = "@region_id";
-                pRegionId.Value = id;
-                pRegionId.SqlDbType = SqlDbType.Int;
+                SqlParameter pCountryId = new SqlParameter();
+                pCountryId.ParameterName = "@country_id";
+                pCountryId.Value = id;
+                pCountryId.SqlDbType = SqlDbType.Char;
 
                 // menambahkan parameter ke command
-                command.Parameters.Add(pRegionId);
+                command.Parameters.Add(pCountryId);
 
                 // Menalankan command
                 using SqlDataReader reader = command.ExecuteReader();
@@ -74,13 +83,10 @@ namespace DatabaseConnectivity.models
                 {
                     if (reader.Read())
                     {
-                        region.Id = reader.GetInt32(0);
-                        region.Name = reader.GetString(1);
+                        country.Id = reader.GetString(0);
+                        country.Name = reader.GetString(1);
+                        country.RegionId = reader.GetInt32(2);
                     }
-                }
-                else
-                {
-                    Console.WriteLine("Data not found!");
                 }
 
                 reader.Close();
@@ -92,30 +98,50 @@ namespace DatabaseConnectivity.models
                 Console.WriteLine(ex.Message);
             }
             connection.Close();
-            return region;
+            return country;
         }
 
-        public static int Create(string name)
+        public int Create(string id, string name, int regionId)
         {
             int result = 0;
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO tb_m_regions VALUES ((@region_name))";
+                command.CommandText = "INSERT INTO tb_m_countries (id, name, region_id) VALUES ((@country_id) , (@country_name) , (@region_id))";
+                //command.CommandText = $"INSERT INTO tb_m_countries (id, name, region_id) VALUES ('{id}', '{name}', {regionId})";
                 command.Transaction = transaction;
 
                 // membuat parameter
-                SqlParameter pRegionName = new SqlParameter();
-                pRegionName.ParameterName = "@region_name";
-                pRegionName.Value = name;
-                pRegionName.SqlDbType = SqlDbType.VarChar;
+                SqlParameter pCountryId = new SqlParameter();
+                pCountryId.ParameterName = "@country_id";
+                pCountryId.Value = id;
+                pCountryId.SqlDbType = SqlDbType.VarChar;
 
                 // menambahkan parameter ke command
-                command.Parameters.Add(pRegionName);
+                command.Parameters.Add(pCountryId);
+
+                // membuat parameter
+                SqlParameter pCountryName = new SqlParameter();
+                pCountryName.ParameterName = "@country_name";
+                pCountryName.Value = name;
+                pCountryName.SqlDbType = SqlDbType.VarChar;
+
+                // menambahkan parameter ke command
+                command.Parameters.Add(pCountryName);
+
+                // membuat parameter
+                SqlParameter pRegionIdCountry = new SqlParameter();
+                pRegionIdCountry.ParameterName = "@region_id";
+                pRegionIdCountry.Value = regionId;
+                pRegionIdCountry.SqlDbType = SqlDbType.Int;
+
+                // menambahkan parameter ke command
+                command.Parameters.Add(pRegionIdCountry);
 
                 // Menalankan command
                 result = command.ExecuteNonQuery();
@@ -141,22 +167,23 @@ namespace DatabaseConnectivity.models
             return result;
         }
 
-        public static int Update(int id, string name)
+        public int Update(string id, string name, int regionId)
         {
             int result = 0;
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "Update tb_m_regions set name=(@region_name) WHERE id=(@region_id)";
+                command.CommandText = "Update tb_m_countries set name=(@country_name), region_id=(@region_id) WHERE id=(@country_id)";
                 command.Transaction = transaction;
 
                 // membuat parameter
                 SqlParameter pRegionName = new SqlParameter();
-                pRegionName.ParameterName = "@region_name";
+                pRegionName.ParameterName = "@country_name";
                 pRegionName.Value = name;
                 pRegionName.SqlDbType = SqlDbType.VarChar;
 
@@ -166,11 +193,20 @@ namespace DatabaseConnectivity.models
                 // membuat parameter
                 SqlParameter pRegionId = new SqlParameter();
                 pRegionId.ParameterName = "@region_id";
-                pRegionId.Value = id;
+                pRegionId.Value = regionId;
                 pRegionId.SqlDbType = SqlDbType.Int;
 
                 // menambahkan parameter ke command
                 command.Parameters.Add(pRegionId);
+
+                // membuat parameter
+                SqlParameter pCountryId = new SqlParameter();
+                pCountryId.ParameterName = "@country_id";
+                pCountryId.Value = id;
+                pCountryId.SqlDbType = SqlDbType.VarChar;
+
+                // menambahkan parameter ke command
+                command.Parameters.Add(pCountryId);
 
                 // Menalankan command
                 result = command.ExecuteNonQuery();
@@ -196,27 +232,28 @@ namespace DatabaseConnectivity.models
             return result;
         }
 
-        public static int Delete(int id)
+        public int Delete(string id)
         {
             int result = 0;
-            SqlConnection connection = DB.Connection();
+            SqlConnection connection = new DB().Connection();
+            connection.Open();
             SqlTransaction transaction = connection.BeginTransaction();
 
             try
             {
                 SqlCommand command = new SqlCommand();
                 command.Connection = connection;
-                command.CommandText = "Delete FROM tb_m_regions WHERE id=(@region_id)";
+                command.CommandText = "Delete FROM tb_m_countries WHERE id=(@country_id)";
                 command.Transaction = transaction;
 
                 // membuat parameter
-                SqlParameter pRegionId = new SqlParameter();
-                pRegionId.ParameterName = "@region_id";
-                pRegionId.Value = id;
-                pRegionId.SqlDbType = SqlDbType.Int;
+                SqlParameter pCountryId = new SqlParameter();
+                pCountryId.ParameterName = "@country_id";
+                pCountryId.Value = id;
+                pCountryId.SqlDbType = SqlDbType.VarChar;
 
                 // menambahkan parameter ke command
-                command.Parameters.Add(pRegionId);
+                command.Parameters.Add(pCountryId);
 
                 // Menalankan command
                 result = command.ExecuteNonQuery();
