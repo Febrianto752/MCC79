@@ -1,6 +1,4 @@
-﻿using DatabaseConnectivity.views;
-
-namespace DatabaseConnectivity.Controllers
+﻿namespace DatabaseConnectivity.Controllers
 {
     class MainController
     {
@@ -51,14 +49,14 @@ namespace DatabaseConnectivity.Controllers
                     new EmployeeController().ListMenu();
                     break;
                 case 6:
-                    JobView.JobList();
+                    new JobController().ListMenu();
                     break;
-                case 7:
-                    HistoryView.HistoryList();
-                    break;
-                case 8:
-                    LinqView.Task();
-                    break;
+                //case 7:
+                //    HistoryView.HistoryList();
+                //    break;
+                //case 8:
+                //    LinqView.Task();
+                //    break;
                 case 9:
                     Environment.Exit(0);
                     break;

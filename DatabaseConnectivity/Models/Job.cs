@@ -10,7 +10,7 @@ namespace DatabaseConnectivity.Models
         public int MinSalary { get; set; }
         public int MaxSalary { get; set; }
 
-        public List<Job> FindAllJob()
+        public List<Job> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -36,18 +36,14 @@ namespace DatabaseConnectivity.Models
                         jobs.Add(job);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return jobs;
             }
             connection.Close();
             return jobs;
