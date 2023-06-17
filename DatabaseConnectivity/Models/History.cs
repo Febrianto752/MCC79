@@ -11,7 +11,7 @@ namespace DatabaseConnectivity.Models
         public int DepartMentId { get; set; }
         public string JobId { get; set; }
 
-        public List<History> FindAllHistory()
+        public List<History> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -38,18 +38,14 @@ namespace DatabaseConnectivity.Models
                         histories.Add(history);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return histories;
             }
             connection.Close();
             return histories;

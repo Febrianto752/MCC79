@@ -1,33 +1,33 @@
-﻿namespace DatabaseConnectivity.views
+﻿using DatabaseConnectivity.Models;
+
+namespace DatabaseConnectivity.views
 {
     class HistoryView
     {
 
-        public void HistoryList()
+        public void GetAll(List<History> histories)
         {
-            Console.Clear();
-            Console.WriteLine("Loading...");
 
-            List<History> histories = HistoryModel.FindAllHistory();
             Console.Clear();
 
             Console.WriteLine("*** History List ***\n");
 
-            foreach (var history in histories)
+            if (histories.Count > 0)
             {
-                Console.WriteLine("===========================");
-                Console.WriteLine("Start Date   : {0}", history.StartDate);
-                Console.WriteLine("Employee ID  : {0}", history.EmployeeId);
-                Console.WriteLine("End Date     : {0}", history.EndDate);
-                Console.WriteLine("Job ID       : {0}", history.JobId);
-                Console.WriteLine("===========================");
+                foreach (var history in histories)
+                {
+                    Console.WriteLine("===========================");
+                    Console.WriteLine("Start Date   : {0}", history.StartDate);
+                    Console.WriteLine("Employee ID  : {0}", history.EmployeeId);
+                    Console.WriteLine("End Date     : {0}", history.EndDate);
+                    Console.WriteLine("Job ID       : {0}", history.JobId);
+                    Console.WriteLine("===========================");
+                }
             }
-
-
-            Console.WriteLine("\nPress any key for back!");
-            Console.ReadLine();
-            GeneralView.HomePage();
-
+            else
+            {
+                Console.WriteLine("History data is empty!!!");
+            }
 
         }
     }
