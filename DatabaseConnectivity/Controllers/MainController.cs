@@ -45,7 +45,7 @@ namespace DatabaseConnectivity.Controllers
                     new LocationController().ListMenu();
                     break;
                 case 4:
-                    DepartmentView.DepartmentList();
+                    new DepartmentController().ListMenu();
                     break;
                 case 5:
                     EmployeeView.EmployeeList();
