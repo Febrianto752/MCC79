@@ -20,7 +20,7 @@ namespace DatabaseConnectivity.Models
 
         public Employee() { }
 
-        public static List<Employee> FindAllEmployee()
+        public List<Employee> FindAll()
         {
             SqlConnection connection = new DB().Connection();
             connection.Open();
@@ -53,18 +53,14 @@ namespace DatabaseConnectivity.Models
                         employees.Add(employee);
                     }
                 }
-                else
-                {
-                    Console.WriteLine("Data not found!");
-                }
 
                 reader.Close();
             }
 
             catch (Exception ex)
             {
-                Console.WriteLine("something error");
-                Console.WriteLine(ex.Message);
+                connection.Close();
+                return employees;
             }
             connection.Close();
             return employees;
