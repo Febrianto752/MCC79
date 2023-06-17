@@ -17,7 +17,7 @@ namespace DatabaseConnectivity.Controllers
 
             Console.WriteLine("\nPress any key for back!");
             Console.ReadLine();
-            new MainController().MainMenu();
+            new MainController().Menu();
 
         }
     }

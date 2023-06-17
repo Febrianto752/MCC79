@@ -4,7 +4,7 @@ namespace DatabaseConnectivity.Controllers
 {
     class MainController
     {
-        public void MainMenu()
+        public void Menu()
         {
             Console.Clear();
             Console.WriteLine("*** Main Menu ***");
@@ -30,7 +30,7 @@ namespace DatabaseConnectivity.Controllers
             {
                 Console.WriteLine("Invalid choice input!!!");
                 Console.ReadKey();
-                MainMenu();
+                Menu();
             }
 
             switch (pilihan)
@@ -65,7 +65,7 @@ namespace DatabaseConnectivity.Controllers
                 default:
                     Console.WriteLine("Invalid choice input!!!");
                     Console.ReadKey();
-                    MainMenu();
+                    Menu();
                     break;
             }
         }

@@ -54,7 +54,7 @@ namespace DatabaseConnectivity.Controllers
                     DeleteMenu();
                     break;
                 case 5:
-                    new MainController().MainMenu();
+                    new MainController().Menu();
                     break;
                 default:
                     _generalView.ErrorMessage("Invalid Input!!!");

@@ -6,6 +6,6 @@ class Program
 {
     static void Main(string[] args)
     {
-        new MainController().MainMenu();
+        new MainController().Menu();
     }
 }

@@ -147,7 +147,7 @@ namespace DatabaseConnectivity.ModelView
             }
 
             Console.ReadKey();
-            new MainController().MainMenu();
+            new MainController().Menu();
         }
 
         public void Soal2()
@@ -186,7 +186,7 @@ namespace DatabaseConnectivity.ModelView
             }
 
             Console.ReadKey();
-            new MainController().MainMenu();
+            new MainController().Menu();
         }
     }
 }
